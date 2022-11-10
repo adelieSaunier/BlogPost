@@ -1,5 +1,5 @@
 <?php
-namespace Core;
+
 use App\https\HttpRequest;
 
 Class Request
@@ -34,7 +34,7 @@ Class Request
     {
         $action = explode('@', $this->action);
         $controller = $action[0];
-        var_dump($controller);
+        
         $controller = new $controller(); // recuperer controller
         $method = $action[1];
         if($_SERVER['REQUEST_METHOD'] === 'GET'){

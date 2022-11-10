@@ -1,6 +1,6 @@
 <?php
-namespace Core;
-use Core\Request;
+
+use Request;
 
 class Router {
 

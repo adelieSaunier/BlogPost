@@ -1,5 +1,7 @@
 <?php 
 namespace App\https;
+//gestion superglobal 
+
 class HttpRequest
 {
     public function all()
