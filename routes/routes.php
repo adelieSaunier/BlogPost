@@ -1,4 +1,8 @@
 <?php
-Router::get('/', 'HomeController@index');
-Router::get('/home/show/{id}', 'HomeController@index');
-Router::post('/home/create', 'HomeController@index');
+
+use Core\Router;
+
+echo 'test auoloader';
+Router::get('/', 'App\controllers\HomeController@index');
+Router::get('/home/show/{id}', 'App\controllers\HomeController@show');
+Router::post('/home/create', 'App\controllers\HomeController@create');

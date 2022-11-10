@@ -3,7 +3,7 @@
     "autoload": {
         "psr-4":{
             "App\\":"app/",
-            "":"core/"
+            "Core\\":"core/"
         },
         "files":["routes/routes.php"]
     },
