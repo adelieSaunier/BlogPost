@@ -1,0 +1,48 @@
+
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <link>
+        <title>Blog</title>
+    </head>
+
+    <body>
+    
+        <header>
+        <!-- navbar -->
+            <nav class="">
+                <a href={{"admin/backend"}}>Administrateur</a>
+                {% if auth.status == null %}
+
+                    <a href="{{ route('admin.backend') }}">Login</a>
+                    {% else %}backend
+                        <p>Welcome {{ auth.firstname }}</p>
+                        
+                        <a href="{{ route('admin.logout') }}">Logout</a>
+                        {% if auth.status == 1 %}
+                            <a href="#">Ajouter un article</a>
+                        {% endif %}
+
+                {% endif %}        
+            </nav>
+        </header>
+
+        <!-- Begin page content -->
+        <main class="">
+            <div class="container">
+                {{dump(auth)}}
+
+                {{ block('content') }}
+            </div>
+        </main>
+
+        <footer class="footer ">
+            <div class="container">
+                <span class="">Footer </span>
+            </div>
+        </footer>
+    </body>
+</html>

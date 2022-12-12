@@ -1,0 +1,21 @@
+{% extends "layouts/default.twig" %}
+{% block content %}
+        <form action="{{route('admin.login')}}" method="POST">
+            <div>
+                <label for="firstname">Votre Nom</label>
+                <input type="text" name="firstname">
+                {% for error in errors.firstname %}
+                    {{error}}
+                {% endfor %}
+            </div>
+            <div>
+                <label for="pass">Votre mot de passe</label>
+                <input type="text" name="pass">
+                {% for error in errors.pass %}
+                    {{error}}
+                {% endfor %}
+            </div>
+            <button type="submit">Se connecter</button>
+        </form>
+
+{% endblock %}
