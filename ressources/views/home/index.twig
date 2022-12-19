@@ -7,7 +7,7 @@
         <p>{{post.id}}</p>
         <p>{{post.title}}</p>
         <p>{{post.extract}}</p>
-        <a href="{{ route('home.show', {'id':post.id})}}">lire la suite</a>
+        <a href="{{ route('post.show', {'id':post.id})}}">lire la suite</a>
     {% endfor %}
     </div>
 {% endblock %}

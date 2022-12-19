@@ -52,7 +52,7 @@ Class Request
         if(is_string($this->action)){
             $action = explode('@', $this->action);
             $controller = $action[0];
-            $controller = new $controller();
+            $controller = new $controller($this->request);
             $method = $action[1];
             return isset($this->params) ? $controller->$method(implode($this->params)) : $controller->$method(); //transforme le tableau en chaine de charactères
         }else{
@@ -64,9 +64,9 @@ Class Request
         if(is_string($this->action)){
             $action = explode('@', $this->action);
             $controller = $action[0];
-            $controller = new $controller();
+            $controller = new $controller($this->request);
             $method = $action[1];
-            return isset($this->params) ? $controller->$method($this->request, implode($this->params)) : $controller->$method($this->request);
+            return isset($this->params) ? $controller->$method(implode($this->params)) : $controller->$method();
         }else{
             call_user_func_array($this->action, $this->params);
         }

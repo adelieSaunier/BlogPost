@@ -6,7 +6,7 @@
         <h1>{{post.title}}</h1>
         <p>{{post.content}}</p>
         <p>{{post.created_at}}</p>
-        <a href="{{ route('home.index') }}"><-</a>
+        <a href="{{ route('post.index') }}">Retour</a>
     </div>
 
     <div id="comments">
@@ -24,13 +24,13 @@
     <div id="createcomment">
         <form action="/createcomment" method="post">
             <div>
-                <label for="name">Votre Nom</label>
+                <label for="name">Votre Nom</label><br>
                 <input type="text" name="name">
                 <input type="hidden" name="post_id" value="{{post.id}}" >
             </div>
 
             <div>
-                <label for="content">Votre Commentaire</label>
+                <label for="content">Votre Commentaire</label> <br>
                 <textarea name="content" id="" cols="30" rows="10"></textarea>
             </div>
             <button type="submit">Laisser un commentaire</button>

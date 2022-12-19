@@ -6,6 +6,11 @@ use App\models\Post;
 use App\models\Comment;
 class PostController extends Controller
 {
+    private $request;
+
+    public function __construct(HttpRequest $request){
+        $this->request = $request;
+    }
     public function index()
     {
         $posts = Post::orderBy('created_at', 'desc')->get();
@@ -18,15 +23,15 @@ class PostController extends Controller
         return $this->view('home/show', compact('post', 'comments'));  
     }
 
-    public function create(HttpRequest $request)
+    public function create()
     {
         //$request->
     }
 
-    public function createcomment(HttpRequest $request)
+    public function createcomment()
     {
-        $id = $request->name('post_id');
-        $fields = $request->name();
+        $id = $this->request->name('post_id');
+        $fields = $this->request->name();
         Comment::create($fields);
         return redirect('home/show', ['id' => $id]);
     }

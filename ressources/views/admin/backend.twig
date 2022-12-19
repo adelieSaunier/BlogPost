@@ -1,6 +1,6 @@
 {% extends "layouts/default.twig" %}
 {% block content %}
-        <form action="{{route('admin.login')}}" method="POST">
+        <form action="{{ route('user.login') }}" method="POST">
             <div>
                 <label for="firstname">Votre Nom</label>
                 <input type="text" name="firstname">

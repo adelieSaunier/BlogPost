@@ -7,11 +7,11 @@ use App\https\HttpRequest;
 
 class UserController extends Controller {
 
-    public function backend(){
-        return $this->view('admin/backend');
-    }
+    //public function login(){
+    //    return $this->view('admin/backend');
+   // }
 
-    public function login(HttpRequest $request){ // bouger la redirection 
+    public function login(HttpRequest $request = null ){ // bouger la redirection 
         
         if(!empty($request->all())){
 
@@ -29,7 +29,7 @@ class UserController extends Controller {
                     if($request->name('pass') === $user->pass){
                         $request->session('auth', (int) $user->role);
                         $request->session('firstname', $user->firstname);
-                        redirect('home.index');
+                        redirect('post.index');
                     }else {
                         echo "mauvais mot de passe";
                     }
@@ -38,12 +38,12 @@ class UserController extends Controller {
             }
 
         }
-        return $this->view('admin.backend');
+        return $this->view('admin/backend');
        
     }
 
     public function logout(){
         session_destroy();
-        redirect('home.index');
+        redirect('post.index');
     }
 }

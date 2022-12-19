@@ -17,12 +17,13 @@
                 <a href={{"admin/backend"}}>Administrateur</a>
                 {% if auth.status == null %}
 
-                    <a href="{{ route('admin.backend') }}">Login</a>
+                    <a href="{{ route('user.login') }}">Login</a>
                     {% else %}backend
                         <p>Welcome {{ auth.firstname }}</p>
                         
-                        <a href="{{ route('admin.logout') }}">Logout</a>
+                        <a href="{{ route('user.logout') }}">Logout</a>
                         {% if auth.status == 1 %}
+                            <a href="#">Voir mes articles</a>
                             <a href="#">Ajouter un article</a>
                         {% endif %}
 
