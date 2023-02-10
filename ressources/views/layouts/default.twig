@@ -5,45 +5,152 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
-        <link>
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="http://localhost/BlogPost-main/public/assets/css/main.css" rel="stylesheet">
+        <link href="http://localhost/BlogPost-main/public/assets/css/style.css" rel="stylesheet">
+        {% block stylesheet %}
+       
+        
+        <style>
+
+         /* GROS CUBE QUI ROTATE EN X de 90deg
+         <link href="http://localhost/BlogPost-main/app/public/css/style.css" rel="stylesheet">
+         on peut ajouter background: url(".png") #ffffff no-repeat center
+          background: url(".png") #cc0000 no-repeat center;
+            .container{
+                width: 100%;
+                height:100%;
+                display:inline-block;
+            }
+            .cube-wrapper { 
+                width: 150px;
+                height: 150px;
+                top: 25%;
+                left: 25%;
+                position: absolute;
+                box-shadow: 10px 10px 54px -6px rgba(0,0,0,0.55);
+                transform: translate(-50%, -50%);
+            }
+
+            .cube,.cube div {
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                position: absolute;
+                transform-style: preserve-3d;
+                transition: transform 0.5s ease-in-out;
+            }
+
+            .cube-front {
+                
+                box-shadow: 0 0 50px 30px  blue  inset,
+                0 0 0 8em aqua inset ;
+                background-size: 100%;
+            }
+
+            .cube-top {
+               
+                background-size: 100%;
+                transform: translate(0, -100%) rotateX(90deg);
+                transform-origin: bottom;
+            }
+
+            .cube-wrapper:hover .cube {
+                transform: translate(0, 50%) rotateX(-90deg);
+            }*/
+
+            /* BASE DE PAGE */
+        
+
+        </style>
+        {% endblock %}
+       
+
+
+
         <title>Blog</title>
+
+        
+
+        
     </head>
 
     <body>
     
         <header>
-        <!-- navbar -->
-            <nav class="">
-                <a href={{"admin/backend"}}>Administrateur</a>
-                {% if auth.status == null %}
+            <!-- navbar -->
 
-                    <a href="{{ route('user.login') }}">Login</a>
-                    {% else %}backend
-                        <p>Welcome {{ auth.firstname }}</p>
-                        
-                        <a href="{{ route('user.logout') }}">Logout</a>
+            <nav class="navbar">
+                <a href="{{ route('home.index') }}" class="links" ><h1 class="logo">Web blog</h1></a>
+                <ul class="nav-links-container">
+
+                    <li class="nav-link"><a href="{{ route('home.index') }}" class="links">Accueil</a></li>
+                    <li class="nav-link"><a href="{{ route('post.index') }}" class="links">Articles</a></li>
+
+                    {% if auth.status == null %}
+                        <li class="nav-link"><a href="{{ route('user.login') }}" class="links">Login</a></li>
+                        <li class="nav-link"><a href="#contact-section" class="links">Contact</a></li>
+                        {% else %}
+                            
+                            <li class="nav-link"><a href="{{ route('user.logout') }}" class="links">Logout</a></li>
+                            <li class="nav-link"><a href="{{ route('home.contact') }}" class="links">Contact</a></li>
                         {% if auth.status == 1 %}
-                            <a href="#">Voir mes articles</a>
-                            <a href="#">Ajouter un article</a>
+                            <li class="has-dropdown" >
+                                <a href="#">{{ auth.firstname }}</a>
+                                <ul class="dropdown">
+                                    <li><a class="li-drop" href="#">Mes articles</a></li>
+                                    <li><a class="li-drop" href="{{ route('admin.create') }}">Créer un article</a></li>
+                                </ul>
+                            </li>  
                         {% endif %}
 
-                {% endif %}        
+                    {% endif %}   
+                    
+                </ul>
             </nav>
+
+           
         </header>
 
-        <!-- Begin page content -->
+        <!--
+        <div class="container">
+            <div class="cube-wrapper">
+                <div class="cube">
+                    <div class="cube-top"></div>
+                    <div class="cube-front"></div>
+                </div>
+            </div>  
+            
+        </div>
+          -->
         <main class="">
             <div class="container">
-                {{dump(auth)}}
-
-                {{ block('content') }}
+                {% block content %}
+                {% endblock %}
             </div>
         </main>
 
-        <footer class="footer ">
-            <div class="container">
-                <span class="">Footer </span>
+    <!-- footer
+    ================================================== -->
+    <section id="footer-section">
+        
+        <footer id="footer">
+            <div class="card_deck">
+                <div class="column large-full ss-copyright">
+                    <span>© Copyright WEB Blog 2023</span> 
+                    <span>Design by Adélie</span>
+                </div>            
+
+               
             </div>
         </footer>
+    </section>
+    <script src="http://localhost/BlogPost-main/public/assets/js/jquery-3.6.3.min.js" ></script>
+    {% block javascripts %}
+    
+    {% endblock %}
     </body>
+    
 </html>

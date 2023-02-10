@@ -1,0 +1,106 @@
+{% extends "layouts/default.twig" %}
+{% block content %}
+<div class="content">
+
+    <section id="project-section">
+        <h2 class="heading padd40top">Les commentaires à valider :</h2>
+        <div class="deck-card">
+            
+            {% for comment in commentsToValidate %}
+                <div class="comment" id="comment-{{comment.id}}">
+                    <p class="padd20bot">Article : {{comment.post.title}}</p>
+                    <p class="padd20bot">{{comment.title}}</p>
+                    <p class="padd20bot">{{comment.content}}</p>
+                    <p class="padd20bot">Utilisateur : {{comment.user.lastname}}</p>
+                    
+                    <button value="{{comment.id}}" class="btn validate-btn" >Mettre en ligne</button>
+                    <button class="btn delete-comment" value="{{comment.id}}" onclick="return confirm('êtes vous certain de vouloir supprimer ce commentaire ?')">Supprimer</button>
+                </div>
+            {% endfor %}
+        </div>
+
+        <h2 class="heading padd40top">Les commentaires validés :</h2>
+
+        <div class="deck-card" id="validatedComments">
+            
+            {% for validatedComment in validatedComments %}
+                <div class="comment" id="comment-{{validatedComment.id}}">
+                    <p class="padd20bot">Article : {{validatedComment.post.title}}</p>
+                    <p class="padd20bot">{{validatedComment.title}}</p>
+                    <p class="padd20bot">{{validatedComment.content}}</p>
+                    <p class="padd20bot">Utilisateur : {{validatedComment.user.lastname}}</p>
+                    <button class="btn delete-comment" value="{{validatedComment.id}}" onclick="return confirm('êtes vous certain de vouloir supprimer ce commentaire ?')">Supprimer</button>
+
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function (){
+
+            $(".validate-btn").click(function (e) {
+            
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                e.preventDefault()
+                let click = $(this)
+                
+                let comment_id = $(this).val();
+                let rowvalidated = $('#validatedComments');
+                //let rowvalidated = document.getElementById('validatedComments');
+                let data = {
+                    'comment_id': comment_id,
+                }
+                
+                $.ajax({
+                    type: "POST",
+                    url: "/BlogPost-main/admin/comment/" + comment_id,
+                    data: data,
+                    success: function(response){
+                        parse_response = JSON.parse(response)
+                        click.closest('.comment').remove()
+                        rowvalidated.append(`
+                            <div class="comment" id="comment-${parse_response.comment_id}">
+                                <p class="padd20bot">Article :${parse_response.post}</p>
+                                <p class="padd20bot">${parse_response.title}</p>
+                                <p class="padd20bot">${parse_response.content}</p>
+                                <p class="padd20bot">Utilisateur : ${parse_response.user}</p>
+                                <input type="hidden" value="${parse_response.comment_id}" class="comment-id">
+                                <button class="btn delete-validated-comment" onclick="return confirm('êtes vous certain de vouloir supprimer ce commentaire ?')">Supprimer</button>
+                            </div>`
+                        );
+                    }
+                })
+            });
+
+            $(".delete-comment").click(function (e) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                e.preventDefault()
+                let comment_id = $(this).val();
+                let thisClick = $(this);
+                let comment = $('#comment-'+comment_id )
+                $.ajax({
+                    type: "GET",
+                    url: "/BlogPost-main/admin/comment/" + comment_id + "/delete",
+                    success: function(response){
+                        //thisClick.closest('.comment').remove()
+                        comment.remove()
+                    }
+                })
+            })
+        });
+    </script>
+{% endblock %}

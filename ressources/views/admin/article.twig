@@ -1,0 +1,38 @@
+{% extends "layouts/default.twig" %}
+{% block content %}
+
+    <section id="article-section">
+        <h1 class="heading">Modifier l'article</h1>
+
+        <form method='POST' action=" {{ route('admin.edit', {'id':post.id}) }} ">
+
+            <div class="form-input">
+                <label for="title">Titre</label><br>
+                <input type="text" class="" id="title" name="title" value="{{ post.title }}" >
+                {% for error in errors.title %}
+                    {{error}}
+                {% endfor %}
+            </div>
+
+            <div class="form-input">
+                <label for="extract">Extrait</label><br>
+                <input type="text" id="extract" name="extract" value ="{{ post.extract }}">
+                {% for error in errors.extract %}
+                    {{error}}
+                {% endfor %}
+            </div>
+
+            <div class="form-input">
+                <label for="ckeditor">Contenu de l'article</label><br>
+                <textarea name="content" id="ckeditor" cols="30" rows="10">"{{ post.content }}"</textarea>
+                {% for error in errors.content %}
+                    {{error}}
+                {% endfor %}
+            </div>
+
+            <button type="submit">Modifier</button>
+
+        </form>
+    </section>
+
+{% endblock %}

@@ -8,17 +8,20 @@ function request($instance = null){ // creation obj request
     return $instance;
 }
 
-function routename($name, $params = []){
+function routename($name, $params = [])
+{
     $path = Router::url($name, $params);
     echo $path;
 }
 
-function redirect($name, $params=[]){
+function redirect($name, $params = [])
+{
     $path = Router::url($name, $params);
     header('Location:' . $path);
+    exit;
 }
 
-function recordedposts(){ // garder les champs 
+function recordedposts(){ // garder la valeur des champs en session
     return isset($_SESSION['input']) ? $_SESSION['input'] : "";
 }
 
@@ -26,7 +29,8 @@ function session($val){
     return isset($_SESSION[$val]) ? $_SESSION[$val] : "";
 }
 
-function errors(){
+function errors()
+{
     $request = new HttpRequest;
     $errors = $request->getErrors();
     var_dump($errors);
@@ -44,15 +48,17 @@ function auth() // retourne un tableau avec tout ce qui a été enregistré en s
     $request = request();
     return array(
         'status' => $request->session('auth'),
-        'firstname' => $request->session('firstname')
+        'firstname' => $request->session('firstname'),
     );
 }
 
-function isAdmin(){
+function isAdmin()
+{
     $request = request();
-    if ($request->session('auth')== 1 ){
+    
+    if ($request->session('auth') == 1 ){
         return true;
     }else{
-        redirect('admin.backend');
+        redirect('user.login');
     }
 }

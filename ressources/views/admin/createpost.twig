@@ -1,0 +1,51 @@
+{% extends "layouts/default.twig" %}
+
+{% block content %}
+<section id="article-section">
+    <h1 class="heading">Créer un article</h1>
+    
+    <div class="create_article">
+
+        <form method='POST' action=" {{ route('admin.create') }} ">
+
+            <div class="form-input">
+                <label for="title">Titre</label><br>
+                <input type="text" class="" id="title" name="title" >
+                {% for error in errors.title %}
+                    {{error}}
+                {% endfor %}
+            </div>
+
+            <div class="form-input">
+                <label for="extract">Extrait</label><br>
+                <input type="text" id="extract" name="extract">
+                {% for error in errors.extract %}
+                    {{error}}
+                {% endfor %}
+            </div>
+
+            <div class="form-input">
+                <label for="ckeditor">Contenu de l'article</label><br>
+                <textarea name="content" id="ckeditor" cols="30" rows="10"></textarea>
+                {% for error in errors.content %}
+                    {{error}}
+                {% endfor %}
+            </div>
+
+            <button class="btn" type="submit">Enregistrer</button>
+
+        </form>
+
+    </div>
+</section>
+{% endblock %}
+
+
+{% block js %}
+    <script src="/public/assets/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('ckeditor', {
+            uicolor: '#CCEAEE'
+        });
+    </script>
+{% endblock %}

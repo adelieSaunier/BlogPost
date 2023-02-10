@@ -4,5 +4,7 @@ use Model;
 
 class User extends Model
 {
+    protected $guarded = [];
+
 
 }

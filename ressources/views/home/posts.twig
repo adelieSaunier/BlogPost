@@ -1,0 +1,27 @@
+{% extends "layouts/default.twig" %}
+{% block stylesheet %}
+<link href="http://localhost/BlogPost-main/public/assets/css/style.css" rel="stylesheet">
+
+{% endblock %}
+{% block content %}
+
+    <section id="project-section">
+        <h1 class="heading">Tous mes articles</h1>
+        <div class="deck-card">
+            
+            {% for post in posts %}
+                <div class="card-item">
+                    
+                    <p class="card-title">{{post.title}}</p>
+                    <p class="extract">{{post.extract}}</p>
+                    <a class="btn" href="{{ route('post.show', {'id':post.id}) }}">Lire la suite</a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+            
+{% endblock %}

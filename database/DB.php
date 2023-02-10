@@ -7,7 +7,7 @@ $capsule = new Capsule();
 $capsule->addConnection([
     'driver' => 'mysql',
     'host' => 'localhost',
-    'database' => 'blogpost',
+    'database' => 'blog_database',
     'username' => 'root',
     'password' => 'admin-pass',
     'charset' => 'utf8',

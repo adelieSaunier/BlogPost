@@ -1,6 +1,6 @@
 <?php 
 namespace App\https;
-//gestion superglobal 
+
 
 class HttpRequest
 {
@@ -24,7 +24,7 @@ class HttpRequest
 
     public function session($name, $data = null){
         if(!empty($data) | $data != null ){
-        $_SESSION[$name] = $data;
+            $_SESSION[$name] = $data;
         }else{
             return isset($_SESSION[$name]) ? $_SESSION[$name] : "";
         }
@@ -41,7 +41,7 @@ class HttpRequest
                         case 'required':
                             $this->required($key, $this->posts[$key]);
                             break;
-                        case substr($rule, 0,3) ==='max':
+                        case substr($rule, 0,3) ==='max': // Revoir pkoi substr !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                             $this->max($key, $this->posts[$key], $rule);
                             break;
                         case substr($rule, 0,3) ==='min':
@@ -95,6 +95,29 @@ class HttpRequest
         print '</pre>';
         return $this->errors;
         //return isset($_SESSION['errors']) ? $_SESSION['errors'] : [];
+    }
+
+    public function loadfile($name, $file_destination, array $data){
+        print '<pre>';
+        var_dump($_FILES);
+        print '</pre>';
+
+        $file_name = $_FILES[$name]['name'];
+        $file_extension = strchr($file_name, ".");
+        $file_tmp = $_FILES[$name]['tmp_name'];
+        $file_destination = $file_destination . $file_name;
+
+        if(in_array($file_extension, $data))
+        {
+            if(move_uploaded_file($file_tmp, $file_destination))
+            {
+                return $file_destination;
+            }else{
+                echo 'le fichier image n\'est pas envoyé';
+            }
+        }else{
+            echo 'mauvaise extension';
+        }
     }
 
 

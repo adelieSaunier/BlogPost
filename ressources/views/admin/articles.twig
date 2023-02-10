@@ -1,0 +1,75 @@
+{% extends "layouts/default.twig" %}
+{% block content %}
+<div class="padd80top">
+    <table class="table table-bordered table-striped ">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Extrait</th>
+                <th>Contenu</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if posts %}
+            {% for post in posts %}
+                <tr class="post_row">
+                    <td class="post_id">
+                        {{ post.id }}
+                    </td>
+                    <td> 
+                        {{ post.title}}
+
+                    </td>
+                    <td>
+                        {{ post.extract }}
+                    </td>
+                    <td>
+                        {{ post.content }}
+                    </td>
+                    <td>
+                        <a href="{{ route('admin.edit', {'id':post.id}) }}" class="btn btn-success">Modifier</a>
+                        <button class="btn delete-post" onclick="return confirm('êtes vous certain de vouloir supprimer ce commentaire ?')">Supprimer</button>
+
+                    </td>
+                </tr>
+            {% endfor %} 
+        {% else %} 
+            <tr>
+                <td colspan="7">
+                    Pas d'article enregistré
+                </td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function (){
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $(document).on('click', '.delete-post', function(){
+                let article_id = $(".post_id").val();
+                let thisClick = $(this);
+                $.ajax({
+                    type: "GET",
+                    url: "/BlogPost-main/admin/article/" + article_id + "/delete",
+                    success: function(response){
+                        thisClick.closest('.post_row').remove()
+                    }
+                })
+            })
+        });
+    </script>
+{% endblock %}
+
