@@ -26,8 +26,7 @@ Class Request
         $path = preg_replace('#({[/w]+})#','([^/]+)', $this->path); // remplacement ^/ tout sauf les slashs
         
         $pathToMatch = "#^$path$#";
-        //var_dump($pathToMatch);
-        //var_dump($url);
+        
         if(preg_match($pathToMatch, $url, $results))
         {
             array_shift($results); //écrase l'url ce qui reste dans le tableau results ce sont les param

@@ -15,7 +15,7 @@
  
   display: block;
 }
-.dropdown{
+.dropdown {
   background-color: aliceblue;
 }
 
@@ -34,25 +34,27 @@
 }
 
 
-.padd40top{
+.padd40top {
   padding-top: 40px;
 }
 
 
-.padd80top{
+.padd80top {
   padding-top: 80px;
 }
 
-.padd40bot{
+.padd40bot {
   padding-bottom: 40px;
 } 
 
-.padd20bot{
+.padd20bot {
   padding-bottom: 20px;
 }
 
 
-table{caption-side:bottom;border-collapse:collapse}
+table {
+  caption-side:bottom;border-collapse:collapse
+}
   
 
 table th,
@@ -60,8 +62,8 @@ table td {
     text-align: left;
     padding: 6px;
 }
-table,
-th,
-td {
+
+
+table th td {
     border: 1px solid #000;
 }

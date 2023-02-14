@@ -11,13 +11,12 @@ class CommentController extends Controller
 {
     private $request;
 
-    public function __construct(HttpRequest $request){
+    public function __construct (HttpRequest $request) {
         $this->request = $request;
     }
 
-    public function create()
-    {
-        if(!empty($this->request->all())){
+    public function create() {
+        if (!empty($this->request->all())) {
 
             $id = $this->request->name('post_id');
 
@@ -25,9 +24,8 @@ class CommentController extends Controller
                 'title-comment' => ['required'],
                 'comment' => ['required']
             ]);
-            $user = User::find('id');
-            if(empty($errors)){
-    
+            
+            if (empty($errors)) {
                 $comment = Comment::create([
                     'title' => $this->request->name('title-comment'),
                     'content' => $this->request->name('comment'),
@@ -35,13 +33,12 @@ class CommentController extends Controller
                     'user_id' => $this->request->name('user_id'),
                     'post_id' => $this->request->name('post_id'),
                 ]);
+                flash('comment-message', 'Merci pour commentaire, il sera validé très prochainement');
                 return redirect('post.show', ['id' => $id], compact('comment'));   
             }else{
                 return $this->view('post/show/'.$id, ['errors' => $errors, 'id' => $id]);
             }
              
-        }else{
-            echo 'pb !!!';
         }
     }
 }

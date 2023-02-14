@@ -56,7 +56,6 @@
                 
                 let comment_id = $(this).val();
                 let rowvalidated = $('#validatedComments');
-                //let rowvalidated = document.getElementById('validatedComments');
                 let data = {
                     'comment_id': comment_id,
                 }
@@ -90,17 +89,17 @@
                 });
                 e.preventDefault()
                 let comment_id = $(this).val();
-                let thisClick = $(this);
                 let comment = $('#comment-'+comment_id )
                 $.ajax({
                     type: "GET",
                     url: "/BlogPost-main/admin/comment/" + comment_id + "/delete",
                     success: function(response){
-                        //thisClick.closest('.comment').remove()
                         comment.remove()
                     }
                 })
             })
         });
     </script>
+
+
 {% endblock %}

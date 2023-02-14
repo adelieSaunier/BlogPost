@@ -32,7 +32,7 @@ Manager::schema()->create('comments', function ($table) {
     $table->increments('id');
     $table->string('title');
     $table->mediumText('content');
-    $table->boolean('status')->default('0')->comment('0 = hors ligne, 1 = en ligne '); // null par défaut
+    $table->boolean('status')->default('0')->comment('0 = hors ligne, 1 = en ligne '); 
     $table->integer('user_id')->unsigned();
     $table->integer('post_id')->unsigned();
 

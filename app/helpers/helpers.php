@@ -29,8 +29,7 @@ function session($val){
     return isset($_SESSION[$val]) ? $_SESSION[$val] : "";
 }
 
-function errors()
-{
+function errors() {
     $request = new HttpRequest;
     $errors = $request->getErrors();
     var_dump($errors);
@@ -50,6 +49,32 @@ function auth() // retourne un tableau avec tout ce qui a été enregistré en s
         'status' => $request->session('auth'),
         'firstname' => $request->session('firstname'),
     );
+}
+
+function flash($name = '', $message = '', $class = 'alert alert-success'){
+    // si il y a un nom comme register_success par ex
+    if (!empty($name)) {
+      // Si il n'y a pas de message et qu'il y a un 
+        if (!empty($message) && empty($_SESSION[$name])) {
+            if (!empty($_SESSION[$name])) {
+            //on doit l'unset pour que le message ne reste pas après avoir raffraichi la page
+            unset($_SESSION[$name]);
+            }
+    
+            if(!empty($_SESSION[$name. '_class'])){
+            // pareil on doit l'unset pour que le message ne reste pas après avoir raffraichi la page
+            unset($_SESSION[$name. '_class']);
+            }
+    
+            $_SESSION[$name] = $message;
+            $_SESSION[$name. '_class'] = $class;
+        } elseif (empty($message) && !empty($_SESSION[$name])) {
+            $class = !empty($_SESSION[$name. '_class']) ? $_SESSION[$name. '_class'] : '';
+            echo '<div class="'.$class.'" id="msg-flash">'.$_SESSION[$name].'</div>';
+            unset($_SESSION[$name]);
+            unset($_SESSION[$name. '_class']);
+        }
+    }
 }
 
 function isAdmin()

@@ -80,7 +80,7 @@ class AdminController extends Controller
             Post::destroy($id);
             //return redirect('admin.index'); // à changer pour l'admin vue
         }else {
-            return redirect('home.index');
+            return redirect('admin.articles');
         }
     }
 

@@ -5,6 +5,9 @@
 {% endblock %}
 {% block content %}
 
+
+
+
 <section id="article-section">
     <div id="post-details">
         <h1 class="heading">{{post.title}}</h1>
@@ -14,7 +17,10 @@
     </div>
 </section>
     
-   
+<div class="flash">
+{{ flash('comment-message') }}
+
+</div>
 
 <section id="postedcomments-section">
 
