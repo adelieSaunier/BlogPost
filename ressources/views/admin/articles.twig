@@ -30,8 +30,7 @@
                     </td>
                     <td>
                         <a href="{{ route('admin.edit', {'id':post.id}) }}" class="btn btn-success">Modifier</a>
-                        <button class="btn delete-post" onclick="return confirm('êtes vous certain de vouloir supprimer ce commentaire ?')">Supprimer</button>
-
+                        <button class="btn delete-post" value="{{post.id}}" onclick="return confirm('êtes vous certain de vouloir supprimer cet article ?')">Supprimer</button>
                     </td>
                 </tr>
             {% endfor %} 
@@ -58,8 +57,9 @@
                 }
             });
 
-            $(document).on('click', '.delete-post', function(){
-                let article_id = $(".post_id").val();
+            $(document).on('click', '.delete-post', function(e){
+                e.preventDefault()
+                let article_id = $(this).val();
                 let thisClick = $(this);
                 $.ajax({
                     type: "GET",

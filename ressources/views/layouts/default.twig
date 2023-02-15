@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="fr">
     <head>
@@ -13,14 +12,7 @@
        
         {% endblock %}
        
-
-
-
         <title>Blog - Adélie</title>
-
-        
-
-        
     </head>
 
     <body>
@@ -46,8 +38,9 @@
                             <li class="has-dropdown" >
                                 <a href="#">{{ auth.firstname }}</a>
                                 <ul class="dropdown">
-                                    <li><a class="li-drop" href="#">Mes articles</a></li>
+                                    <li><a class="li-drop" href="{{ route('admin.articles') }}">Mes articles</a></li>
                                     <li><a class="li-drop" href="{{ route('admin.create') }}">Créer un article</a></li>
+                                    <li><a class="li-drop" href="{{ route('admin.comments') }}">Les commentaires</a></li>
                                 </ul>
                             </li>  
                         {% endif %}
@@ -78,8 +71,6 @@
                     <span>© Copyright WEB Blog 2023</span> 
                     <span>Design by Adélie</span>
                 </div>            
-
-               
             </div>
         </footer>
     </section>

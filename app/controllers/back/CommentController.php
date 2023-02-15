@@ -45,7 +45,6 @@ class CommentController extends Controller {
         $comment->update(['status' => 1]);
         $response = json_encode($validatedcomment);
         echo $response;
-        //die;
     }
     
     public function delete($id){

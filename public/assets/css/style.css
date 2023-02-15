@@ -21,7 +21,6 @@
 
 .li-drop {
   text-decoration: none;
-
   padding: 1rem;
   clear: both;
   width: 100%;
@@ -33,11 +32,9 @@
   display: block;
 }
 
-
 .padd40top {
   padding-top: 40px;
 }
-
 
 .padd80top {
   padding-top: 80px;
@@ -53,17 +50,18 @@
 
 
 table {
-  caption-side:bottom;border-collapse:collapse
+  caption-side: bottom;
+  border-collapse: collapse
 }
   
 
 table th,
 table td {
-    text-align: left;
-    padding: 6px;
+  text-align: left;
+  padding: 6px;
 }
 
 
 table th td {
-    border: 1px solid #000;
+  border: 1px solid #000;
 }
