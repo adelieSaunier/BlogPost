@@ -98,10 +98,7 @@ class HttpRequest
     }
 
     public function loadfile($name, $file_destination, array $data){
-        print '<pre>';
-        var_dump($_FILES);
-        print '</pre>';
-
+        
         $file_name = $_FILES[$name]['name'];
         $file_extension = strchr($file_name, ".");
         $file_tmp = $_FILES[$name]['tmp_name'];

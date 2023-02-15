@@ -5,7 +5,6 @@ namespace App\controllers\back;
 use Controller;
 use App\https\HttpRequest;
 use App\models\Post;
-use App\models\Comment;
 
 
 class AdminController extends Controller
@@ -76,11 +75,18 @@ class AdminController extends Controller
     }
 
     public function delete($id){
-        if(isAdmin()){
+        if (isAdmin()) {
+            if (Post::find($id)->postComments()) {
+                Post::find($id)->postComments()->delete();
+            }
             Post::destroy($id);
-            //return redirect('admin.index'); // à changer pour l'admin vue
-        }else {
-            return redirect('admin.articles');
+
+            flash('user_message', 'Votre article a été supprimé avec succès');
+            //return redirect('admin.articles'); // à changer pour l'admin vue
+        } else {
+
+            flash('user_message', 'Vous n\'êtes pas administrateur');
+            return redirect('home.index');
         }
     }
 

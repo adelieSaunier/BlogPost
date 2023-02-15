@@ -26,7 +26,7 @@ class CommentController extends Controller {
     }
 
     public function validate($id){
-        //Comment::where('id', '=', $id)->update(['status' => 1]);
+        
         $comment = Comment::find($id);
         
         $title = $comment->title;
@@ -41,11 +41,11 @@ class CommentController extends Controller {
             'user' => $user,
             'post' => $post
         ];
-        //var_dump($title);
+        
         $comment->update(['status' => 1]);
         $response = json_encode($validatedcomment);
         echo $response;
-        die;
+        //die;
     }
     
     public function delete($id){

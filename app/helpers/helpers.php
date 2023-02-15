@@ -32,7 +32,7 @@ function session($val){
 function errors() {
     $request = new HttpRequest;
     $errors = $request->getErrors();
-    var_dump($errors);
+   
     $dataerrors = [];
     if(!empty($errors)){
         foreach ($errors as $key => $value){ // fusionner les tableaux
