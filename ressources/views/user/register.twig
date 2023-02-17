@@ -1,36 +1,46 @@
 {% extends "layouts/default.twig" %}
 {% block content %}
+    <section id="login-section">
+    
+        <h1 class="heading">Se créer un compte</h1>
         <form action="{{ route('user.register') }}" method="POST">
             <div>
                 <label for="firstname">Votre Prénom</label>
-                <input type="text" name="firstname">
+                <input type="text" name="firstname" value="{{post.firstname}}">
                 {% for error in errors.firstname %}
-                    {{error}}
+                    <p class="red-error">{{error}}</p>
                 {% endfor %}
             </div>
 
             <div>
                 <label for="lastname">Votre Nom</label>
-                <input type="text" name="lastname">
+                <input type="text" name="lastname" value="{{post.lastname}}">
                 {% for error in errors.lastname %}
-                    {{error}}
+                    <p class="red-error">{{error}}</p>
                 {% endfor %}
             </div>
             <div>
                 <label for="email">Votre Mail</label>
-                <input type="text" name="email">
+                <input type="text" name="email" value="{{post.email}}">
                 {% for error in errors.email %}
-                    {{error}}
+                    <p class="red-error">{{error}}</p>
                 {% endfor %}
             </div>
             <div>
                 <label for="pass">Votre mot de passe</label>
-                <input type="text" name="pass">
+                <input type="text" name="pass" value="{{post.pass}}">
                 {% for error in errors.pass %}
-                    {{error}}
+                    <p class="red-error">{{error}}</p>
                 {% endfor %}
             </div>
-            <button type="submit">Se créer un compte</button>
+            <button type="submit" class="btn">Se créer un compte</button>
         </form>
+
+        <div class="padd40top">
+            <p>Si vous avez déjà un compte, rendez vous sur la page de connexion</p>
+            <a href="{{ route('user.login') }}" class="btn" >Login</a>
+        </div>
+        
+    </section>
 
 {% endblock %}

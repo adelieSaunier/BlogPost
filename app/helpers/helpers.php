@@ -29,19 +29,6 @@ function session($val){
     return isset($_SESSION[$val]) ? $_SESSION[$val] : "";
 }
 
-function errors() {
-    $request = new HttpRequest;
-    $errors = $request->getErrors();
-   
-    $dataerrors = [];
-    if(!empty($errors)){
-        foreach ($errors as $key => $value){ // fusionner les tableaux
-            $dataerrors = array_merge_recursive($dataerrors, array($key => implode($value)));
-        }
-    }
-    return isset($dataerrors) ? $dataerrors : ""; // si il y a des erreurs les retourner sinon retourner vide
-}
-
 function auth() // retourne un tableau avec tout ce qui a été enregistré en session quand l'utilisateur se connecte
 {
     $request = request();
@@ -51,19 +38,19 @@ function auth() // retourne un tableau avec tout ce qui a été enregistré en s
     );
 }
 
-function flash($name = '', $message = '', $class = 'alert alert-success'){
+function flash($name = '', $message = '', $class = 'message-success'){
     // si il y a un nom comme register_success par ex
     if (!empty($name)) {
-      // Si il n'y a pas de message et qu'il y a un 
+        // Si il n'y a pas de message et qu'il y a un 
         if (!empty($message) && empty($_SESSION[$name])) {
             if (!empty($_SESSION[$name])) {
-            //on doit l'unset pour que le message ne reste pas après avoir raffraichi la page
-            unset($_SESSION[$name]);
+                //on doit l'unset pour que le message ne reste pas après avoir raffraichi la page
+                unset($_SESSION[$name]);
             }
     
             if(!empty($_SESSION[$name. '_class'])){
-            // pareil on doit l'unset pour que le message ne reste pas après avoir raffraichi la page
-            unset($_SESSION[$name. '_class']);
+                // pareil on doit l'unset pour que le message ne reste pas après avoir raffraichi la page
+                unset($_SESSION[$name. '_class']);
             }
     
             $_SESSION[$name] = $message;

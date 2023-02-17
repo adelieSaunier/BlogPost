@@ -28,10 +28,6 @@ Router::get('/user/login', 'App\controllers\UserController@login')->name('user.l
 Router::post('/user/login', 'App\controllers\UserController@login')->name('user.login'); // pour envoyer la verif de connexion
 Router::get('/user/logout/{id}', 'App\controllers\UserController@logout')->name('user.logout'); 
 
-
-Router::post('/like', 'App\controllers\LikeController@like')->name('like'); // pour envoyer la verif puis en bdd
-Router::post('/dislike', 'App\controllers\LikeController@dislike')->name('dislike');
-
 Router::post('/comment/create', 'App\controllers\CommentController@create')->name('comment.create'); // création commentaire
 
 

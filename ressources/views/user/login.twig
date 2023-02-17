@@ -5,14 +5,14 @@
         <form action="{{ route('user.login') }}" method="POST">
             <div>
                 <label for="firstname">Votre Nom</label>
-                <input type="text" name="firstname">
+                <input type="text" name="firstname" value="{{post.firstname}}">
                 {% for error in errors.firstname %}
                     {{error}}
                 {% endfor %}
             </div>
             <div>
                 <label for="pass">Votre mot de passe</label>
-                <input type="text" name="pass">
+                <input type="password" name="pass">
                 {% for error in errors.pass %}
                     {{error}}
                 {% endfor %}

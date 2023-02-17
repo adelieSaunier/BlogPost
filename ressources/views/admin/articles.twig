@@ -1,6 +1,7 @@
 {% extends "layouts/default.twig" %}
 {% block content %}
-<div class="padd80top">
+<section class="section-table-admin padd80top">
+    <h1 class="heading">Tous mes articles</h1>
     <table class="table table-bordered table-striped ">
         <thead>
             <tr>
@@ -29,8 +30,10 @@
                         {{ post.content }}
                     </td>
                     <td>
-                        <a href="{{ route('admin.edit', {'id':post.id}) }}" class="btn btn-success">Modifier</a>
-                        <button class="btn delete-post" value="{{post.id}}" onclick="return confirm('êtes vous certain de vouloir supprimer cet article ?')">Supprimer</button>
+                        <div class="margin20tb">
+                            <a href="{{ route('admin.edit', {'id':post.id}) }}" class="btn btn-edit margin20tb">Modifier</a>
+                            <button class="btn btn-delete margin20tb delete-post" value="{{post.id}}" onclick="return confirm('êtes vous certain de vouloir supprimer cet article ?')">Supprimer</button>
+                        </div>
                     </td>
                 </tr>
             {% endfor %} 
@@ -43,7 +46,7 @@
         {% endif %}
         </tbody>
     </table>
-</div>
+</section>
 
 {% endblock %}
 

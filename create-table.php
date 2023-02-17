@@ -32,26 +32,11 @@ Manager::schema()->create('comments', function ($table) {
     $table->increments('id');
     $table->string('title');
     $table->mediumText('content');
-    $table->boolean('status')->default('0')->comment('0 = hors ligne, 1 = en ligne '); 
+    $table->boolean('status')->default('0')->comment('0 = hors ligne, 1 = en ligne'); 
     $table->integer('user_id')->unsigned();
     $table->integer('post_id')->unsigned();
 
     $table->timestamps();
-
-    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-    $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
-    
-});
-
-
-
-Manager::schema()->dropIfExists('votes');
-Manager::schema()->create('votes', function ($table) {
-    
-    $table->increments('id');
-    $table->boolean('isfavorite');
-    $table->integer('user_id')->unsigned();
-    $table->integer('post_id')->unsigned();
 
     $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
     $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');

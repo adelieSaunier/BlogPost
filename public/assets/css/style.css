@@ -1,5 +1,5 @@
-
 .dropdown {
+  background-color: aliceblue;
   visibility: hidden;
   opacity: 0;
   position: absolute;
@@ -12,11 +12,7 @@
 .dropdown:hover {
   visibility: visible;
   opacity: 1;
- 
   display: block;
-}
-.dropdown {
-  background-color: aliceblue;
 }
 
 .li-drop {
@@ -48,12 +44,15 @@
   padding-bottom: 20px;
 }
 
+.margin20tb{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
 table {
   caption-side: bottom;
   border-collapse: collapse
-}
-  
+} 
 
 table th,
 table td {
@@ -61,7 +60,17 @@ table td {
   padding: 6px;
 }
 
-
 table th td {
   border: 1px solid #000;
+}
+
+.table > tbody > tr > td, 
+.table > tbody > tr > th, 
+.table > tfoot > tr > td, 
+.table > tfoot > tr > th, .table > thead > tr > td, 
+.table > thead > tr > th {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
 }

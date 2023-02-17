@@ -26,6 +26,7 @@ class AdminController extends Controller
 
         // pour ajout d'une image methode loadfile dans httprequest
         // $image = $this->request->loadfile('imagefile','assets/img/upload', ['.png', '.jpg', '.jpeg'])
+        
 
         if(isAdmin()){
             if(!empty($this->request->all())){
@@ -41,7 +42,7 @@ class AdminController extends Controller
                 }else{
                     $values = $this->request->all();
                     Post::create($values);
-                    return redirect('post.index');
+                    return redirect('admin.articles');
                 }
             }else{
                 return $this->view('admin/createpost');

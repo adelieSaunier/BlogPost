@@ -4,7 +4,6 @@ namespace App\controllers;
 
 use App\https\HttpRequest;
 use App\models\Comment;
-use App\models\User;
 use Controller;
 
 class CommentController extends Controller
@@ -35,10 +34,9 @@ class CommentController extends Controller
                 ]);
                 flash('comment-message', 'Merci pour commentaire, il sera validé très prochainement');
                 return redirect('post.show', ['id' => $id], compact('comment'));   
-            }else{
-                return $this->view('post/show/'.$id, ['errors' => $errors, 'id' => $id]);
             }
-             
+            return $this->view('post/show/'.$id, ['errors' => $errors, 'id' => $id]); 
         }
     }
+    
 }

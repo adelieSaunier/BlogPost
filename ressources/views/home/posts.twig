@@ -6,14 +6,17 @@
 {% block content %}
 
     <section id="project-section">
-        <h1 class="heading">Tous mes articles</h1>
+        <h1 class="heading padd80top">Tous mes articles</h1>
         <div class="deck-card">
             
             {% for post in posts %}
                 <div class="card-item">
-                    
-                    <p class="card-title">{{post.title}}</p>
-                    <p class="extract">{{post.extract}}</p>
+                    <div class="card-title">
+                        <p class="">{{post.title}}</p>
+                    </div>
+                    <div class="extract">
+                        <p class="">{{post.extract}}</p>
+                    </div>
                     <a class="btn" href="{{ route('post.show', {'id':post.id}) }}">Lire la suite</a>
                 </div>
             {% endfor %}

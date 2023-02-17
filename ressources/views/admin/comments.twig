@@ -1,61 +1,57 @@
 {% extends "layouts/default.twig" %}
 {% block content %}
-<div class="content">
+    <div class="content">
 
-    <section id="project-section">
-        <h2 class="heading padd40top">Les commentaires à valider :</h2>
-        <div class="deck-card">
-            
-            {% for comment in commentsToValidate %}
-                <div class="comment" id="comment-{{comment.id}}">
-                    <p class="padd20bot">Article : {{comment.post.title}}</p>
-                    <p class="padd20bot">{{comment.title}}</p>
-                    <p class="padd20bot">{{comment.content}}</p>
-                    <p class="padd20bot">Utilisateur : {{comment.user.lastname}}</p>
-                    
-                    <button value="{{comment.id}}" class="btn validate-btn" >Mettre en ligne</button>
-                    <button class="btn delete-comment" value="{{comment.id}}" onclick="return confirm('êtes vous certain de vouloir supprimer ce commentaire ?')">Supprimer</button>
-                </div>
-            {% endfor %}
-        </div>
+        <section id="project-section">
+            <h2 class="heading padd40top">Les commentaires à valider :</h2>
+            <div class="deck-card">
+                
+                {% for comment in commentsToValidate %}
+                    <div class="comment-admin" id="comment-{{comment.id}}">
+                        <p class="padd20bot">Article : {{comment.post.title}}</p>
+                        <p class="padd20bot">{{comment.title}}</p>
+                        <p class="padd20bot">{{comment.content}}</p>
+                        <p class="padd20bot">Utilisateur : {{comment.user.lastname}}</p>
+                        <button value="{{comment.id}}" class="btn validate-btn" >Mettre en ligne</button>
+                        <button class="btn delete-comment btn-delete" value="{{comment.id}}" onclick="return confirm('êtes vous certain de vouloir supprimer ce commentaire ?')">Supprimer</button>
+                    </div>
+                {% endfor %}
+            </div>
 
-        <h2 class="heading padd40top">Les commentaires validés :</h2>
+            <h2 class="heading padd40top">Les commentaires validés :</h2>
 
-        <div class="deck-card" id="validatedComments">
-            
-            {% for validatedComment in validatedComments %}
-                <div class="comment" id="comment-{{validatedComment.id}}">
-                    <p class="padd20bot">Article : {{validatedComment.post.title}}</p>
-                    <p class="padd20bot">{{validatedComment.title}}</p>
-                    <p class="padd20bot">{{validatedComment.content}}</p>
-                    <p class="padd20bot">Utilisateur : {{validatedComment.user.lastname}}</p>
-                    <button class="btn delete-comment" value="{{validatedComment.id}}" onclick="return confirm('êtes vous certain de vouloir supprimer ce commentaire ?')">Supprimer</button>
+            <div class="deck-card" id="validatedComments">
+                
+                {% for validatedComment in validatedComments %}
+                    <div class="comment-admin" id="comment-{{validatedComment.id}}">
+                        <p class="padd20bot">Article : {{validatedComment.post.title}}</p>
+                        <p class="padd20bot">{{validatedComment.title}}</p>
+                        <p class="padd20bot">{{validatedComment.content}}</p>
+                        <p class="padd20bot">Utilisateur : {{validatedComment.user.lastname}}</p>
+                        <button class="btn delete-comment btn-delete" value="{{validatedComment.id}}" onclick="return confirm('êtes vous certain de vouloir supprimer ce commentaire ?')">Supprimer</button>
 
-                </div>
-            {% endfor %}
-        </div>
-    </section>
-</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
 
 {% endblock %}
 
 {% block javascripts %}
     <script>
-        $(document).ready(function (){
+        $(function(){
 
-            $(".validate-btn").click(function (e) {
-            
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
-                e.preventDefault()
+            $(".validate-btn").click(function () {
                 let click = $(this)
-                
-                let comment_id = $(this).val();
-                let rowvalidated = $('#validatedComments');
+                let comment_id = $(this).val()
+                let rowvalidated = $('#validatedComments')
                 let data = {
                     'comment_id': comment_id,
                 }
@@ -66,38 +62,32 @@
                     data: data,
                     success: function(response){
                         parse_response = JSON.parse(response)
-                        click.closest('.comment').remove()
+                        click.closest('.comment-admin').remove()
                         rowvalidated.append(`
-                            <div class="comment" id="comment-${parse_response.comment_id}">
+                            <div class="comment-admin" id="comment-${parse_response.comment_id}">
                                 <p class="padd20bot">Article :${parse_response.post}</p>
                                 <p class="padd20bot">${parse_response.title}</p>
                                 <p class="padd20bot">${parse_response.content}</p>
                                 <p class="padd20bot">Utilisateur : ${parse_response.user}</p>
-                                <input type="hidden" value="${parse_response.comment_id}" class="comment-id">
-                                <button class="btn delete-validated-comment" onclick="return confirm('êtes vous certain de vouloir supprimer ce commentaire ?')">Supprimer</button>
+                                <button value="${parse_response.comment_id}" class="btn btn-delete delete-comment" onclick="return confirm('êtes vous certain de vouloir supprimer ce commentaire ?')" >Supprimer</button>
                             </div>`
                         );
                     }
                 })
             });
 
-            $(".delete-comment").click(function (e) {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                e.preventDefault()
+            $(".delete-comment").click(function () {
                 let comment_id = $(this).val();
-                let comment = $('#comment-'+comment_id )
+                let thisclick = $(this);
                 $.ajax({
                     type: "GET",
                     url: "/BlogPost-main/admin/comment/" + comment_id + "/delete",
                     success: function(response){
-                        comment.remove()
+                        thisclick.closest('.comment-admin').remove()
                     }
                 })
             })
+
         });
     </script>
 

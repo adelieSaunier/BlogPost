@@ -37,7 +37,6 @@ class PostController extends Controller
             $user_id = null;
             $session = null;
         }
-        $votes = Vote::where('post_id', $id)->where('user_id', '=', $user_id)->get();
         
         return $this->view('home/show', compact('post', 'comments','votes', 'user_id', 'session'));  
     }

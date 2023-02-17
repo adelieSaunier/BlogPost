@@ -19,7 +19,6 @@
     
         <header>
             <!-- navbar -->
-
             <nav class="navbar">
                 <a href="{{ route('home.index') }}" class="links" ><h1 class="logo">Web blog</h1></a>
                 <ul class="nav-links-container">
@@ -40,7 +39,7 @@
                                 <ul class="dropdown">
                                     <li><a class="li-drop" href="{{ route('admin.articles') }}">Mes articles</a></li>
                                     <li><a class="li-drop" href="{{ route('admin.create') }}">Créer un article</a></li>
-                                    <li><a class="li-drop" href="{{ route('admin.comments') }}">Les commentaires</a></li>
+                                    <li><a class="li-drop" href="{{ route('comments.index') }}">Les commentaires</a></li>
                                 </ul>
                             </li>  
                         {% endif %}

@@ -50,21 +50,17 @@ class HttpRequest
                         default:
                         break;
                     }
+                    $this->session('input', $this->posts);
                 }
             }
         }
         return $this->getErrors();
-        /*if($this->getErrors() != null){
-            header('Location: '.$this->lastUrl());
-        } else {
-            return $this->all(); //retourner les posts $_POST
-        }*/
     }
 
     public function required($name, $value){ //$name = nom du champs et $value = valeur du champs
         $value = trim($value);
         if(!isset($value) || is_null($value) || empty($value)){ // si cette valeur n'est pas soumise ou qu'elle est null ou vide
-            $this->errors[$name][] = "$name is required";
+            $this->errors[$name][] = "$name est requis";
         } 
     }
 
@@ -72,7 +68,7 @@ class HttpRequest
         preg_match_all('/(\d+)/', $rule, $matches); // $matches tableau
         $limit =(int) $matches[0][0]; // la valeur renseignée daans mon tableau 
         if(strlen($value) > $limit){
-            $this->errors[$name][] = "$name must contain less than or equal to $limit characters";
+            $this->errors[$name][] = "$name doit faire au maximum $limit charactères";
         }
     }
 
@@ -80,21 +76,12 @@ class HttpRequest
         preg_match_all('/(\d+)/', $rule, $matches); // $matches tableau
         $limit =(int) $matches[0][0]; // la valeur renseignée daans mon tableau 
         if(strlen($value) < $limit){
-            $this->errors[$name][] = "$name must contain greater than or equal to $limit characters";
+            $this->errors[$name][] = "$name doit faire au minimum $limit charactères";
         }
     }
 
     public function getErrors(){
-        /*if(!empty($this->errors)){
-            $_SESSION['errors']= $this->errors;
-        } else {
-            session_destroy();
-        }*/
-        print '<pre>';
-        print_r($this->errors);
-        print '</pre>';
         return $this->errors;
-        //return isset($_SESSION['errors']) ? $_SESSION['errors'] : [];
     }
 
     public function loadfile($name, $file_destination, array $data){
@@ -110,10 +97,10 @@ class HttpRequest
             {
                 return $file_destination;
             }else{
-                echo 'le fichier image n\'est pas envoyé';
+                flash('file_message', 'le fichier image n\'est pas envoyé' ) ;
             }
         }else{
-            echo 'mauvaise extension';
+            flash('file_message', 'l\'extension n\'est pas correct' ) ;
         }
     }
 

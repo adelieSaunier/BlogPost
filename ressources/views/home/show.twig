@@ -9,6 +9,9 @@
 
 
 <section id="article-section">
+    <div>
+        {{ flash('comment-message') }}
+    </div>
     <div id="post-details">
         <h1 class="heading">{{post.title}}</h1>
         <p class="info">{{post.content}}</p>
@@ -17,10 +20,7 @@
     </div>
 </section>
     
-<div class="flash">
-{{ flash('comment-message') }}
 
-</div>
 
 <section id="postedcomments-section">
 
@@ -37,31 +37,11 @@
     </div>
 </section>     
     {% if auth.status == null %}
-        <p>Laisser un commentaire <a href="{{ route('user.login') }}">se connecter</a></p>          
+        <p>Pour laisser un commentaire <a href="{{ route('user.login') }}" class="btn">se connecter</a></p>          
         
         {% else %}
            
         <section id="comment-section">
-
-
-            <div class="like-unlike">
-                <a 
-                    href="{{ route( 'dislike')}}" 
-                    id="dislike" 
-                    class="favorite" 
-                    data-post="{{ post.id }}" 
-                    data-user="{{ user_id }}" 
-                    type="submit" value="0" 
-                    >Dislike
-                    <i class="fa fa-thumbs-down"></i>
-                </a> 
-
-                <a href="{{ route('like' )}}" id="like" class="favorite" data-post="{{post.id}}" data-user="{{ user_id }}" value="1" >Like<i class="fa fa-thumbs-up"></i></a>
-
-            
-            </div>
-            
-           
 
            <!-- CREATION COMMENTAIRE -->
 
@@ -73,20 +53,21 @@
                     </div>
                     <div>
                         <label for="title-comment">TItre</label><br>
-                        <input type="text" name="title-comment" id="title-comment">
+                        <input type="text" name="title-comment" id="title-comment" value="{{comment.title}}">
                         {% for error in errors.title %}
-                            {{error}}
+                            <p class="red-error">{{error}}</p>
                         {% endfor %}
                     </div>
 
                     <div>
                         <label for="comment">Commentaire</label> <br>
-                        <textarea name="comment" id="" cols="30" rows="10"></textarea>
+                        <textarea name="comment" id="" cols="30" rows="10">{{comment.comment}}</textarea>
                         {% for error in errors.content %}
-                            {{error}}
+                            <p class="red-error">{{error}}</p>
                         {% endfor %}
                     </div>
-                    <button type="submit">Laisser un commentaire</button>
+
+                    <button class="btn" type="submit">Laisser un commentaire</button>
                 </form>
             </div>
         </section>
@@ -95,67 +76,5 @@
     
 {% endblock %}
 
-{% block javascripts %}
-<script>
-
-    let likebutton = document.getElementById("like");
-    let unlikebutton = document.getElementById("dislike");
-    //console.log(likebutton)
-    likebutton.addEventListener("click", like );
-    unlikebutton.addEventListener("click", dislike );
-
-    function like(event){
-        event.preventDefault()
-
-        console.log('coucou');
-        //url dans le href
-        let post_id = this.getAttribute("data-post")
-        //console.log(post_id)
-        let user_id = this.getAttribute("data-user")
-        //console.log(user_id)
-        fetch(this.getAttribute("href"), {
-            //on peut passer des params : methode, datas
-            method: 'POST', 
-            body: JSON.stringify({ 'post_id':post_id, 'user_id':user_id }), 
-             
-        })
-        
-        //recup reponse serveur
-        .then(function(response){
-            console.log(response)
-            return response.json()
-        })
-
-        //traitement de la reponse
-        .then(function(json){
-            //reponse à l'utilisateur
-            //console.log(json)
-        })
-    }
 
 
-    function dislike(event){
-        event.preventDefault()
-        let post_id = this.getAttribute("data-post")
-        let user_id = this.getAttribute("data-user")
-        //url dans le href
-        fetch(this.getAttribute("href"), {
-            //on peut passer des params : methode,
-            method: 'POST', 
-            body: JSON.stringify({ 'post_id':post_id, 'user_id':user_id }),
-
-        })
-        //recup reponse serveur
-        .then(function(response){
-            return response.json()
-        })
-        //traitement de la reponse
-        .then(function(json){
-            //reponse à l'utilisateur
-            console.log(json)
-        }).catch(e=>alert(e))
-    }
-
-</script>
-
-{% endblock %}
