@@ -7,7 +7,7 @@
   margin-top: 1rem;
   display: none;
 }
-  
+
 .li-drop:hover > ul,
 .dropdown:hover {
   visibility: visible;
@@ -51,7 +51,7 @@
 
 table {
   caption-side: bottom;
-  border-collapse: collapse
+  border-collapse: collapse;
 } 
 
 table th,
@@ -64,10 +64,10 @@ table th td {
   border: 1px solid #000;
 }
 
-.table > tbody > tr > td, 
-.table > tbody > tr > th, 
-.table > tfoot > tr > td, 
-.table > tfoot > tr > th, .table > thead > tr > td, 
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th, .table > thead > tr > td,
 .table > thead > tr > th {
   padding: 8px;
   line-height: 1.42857143;

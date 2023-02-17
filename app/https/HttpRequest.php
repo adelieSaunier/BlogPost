@@ -7,22 +7,26 @@ class HttpRequest
     protected $posts;
     protected $errors;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->posts = $_POST;
     }
+
     public function all()
     {
         return $_POST;
     }
     
-    public function name(string $field = null){
+    public function name(string $field = null)
+    {
         if($field == null){
             return $_POST;
         }
         return $_POST[$field];
     }
 
-    public function session($name, $data = null){
+    public function session($name, $data = null)
+    {
         if(!empty($data) | $data != null ){
             $_SESSION[$name] = $data;
         }else{
@@ -34,14 +38,14 @@ class HttpRequest
     {
     
         foreach($rules as $key=> $valuearray){
-            if(array_key_exists($key, $this->posts)){
+            if (array_key_exists($key, $this->posts)) {
                 foreach($valuearray as $rule){
                     
                     switch($rule){
                         case 'required':
                             $this->required($key, $this->posts[$key]);
                             break;
-                        case substr($rule, 0,3) ==='max': // Revoir pkoi substr !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        case substr($rule, 0,3) ==='max': 
                             $this->max($key, $this->posts[$key], $rule);
                             break;
                         case substr($rule, 0,3) ==='min':
@@ -57,22 +61,25 @@ class HttpRequest
         return $this->getErrors();
     }
 
-    public function required($name, $value){ //$name = nom du champs et $value = valeur du champs
-        $value = trim($value);
+    public function required($name, $value)
+    { 
+        $value = trim($value); //$name = nom du champs et $value = valeur du champs
         if(!isset($value) || is_null($value) || empty($value)){ // si cette valeur n'est pas soumise ou qu'elle est null ou vide
             $this->errors[$name][] = "$name est requis";
         } 
     }
 
-    public function max($name, $value, $rule){ // $rule = règle à verif
-        preg_match_all('/(\d+)/', $rule, $matches); // $matches tableau
+    public function max($name, $value, $rule)
+    { 
+        preg_match_all('/(\d+)/', $rule, $matches); // $rule = règle à verif, $matches tableau
         $limit =(int) $matches[0][0]; // la valeur renseignée daans mon tableau 
         if(strlen($value) > $limit){
             $this->errors[$name][] = "$name doit faire au maximum $limit charactères";
         }
     }
 
-    public function min($name, $value, $rule){ //
+    public function min($name, $value, $rule)
+    { 
         preg_match_all('/(\d+)/', $rule, $matches); // $matches tableau
         $limit =(int) $matches[0][0]; // la valeur renseignée daans mon tableau 
         if(strlen($value) < $limit){
@@ -80,11 +87,13 @@ class HttpRequest
         }
     }
 
-    public function getErrors(){
+    public function getErrors()
+    {
         return $this->errors;
     }
 
-    public function loadfile($name, $file_destination, array $data){
+    public function loadfile($name, $file_destination, array $data)
+    {
         
         $file_name = $_FILES[$name]['name'];
         $file_extension = strchr($file_name, ".");
