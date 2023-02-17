@@ -50,16 +50,17 @@ class UserController extends Controller {
     }
 
     
-    public function login(){ // bouger la redirection 
+    public function login()
+    { 
         
-        if(!empty($this->request->all())){
+        if (!empty($this->request->all())) {
 
             $errors = $this->request->validator([
                 'firstname' => ['required', 'max:12'],
                 'pass' => ['required', 'min:5']
             ]);
     
-            if(!empty($errors)){
+            if (!empty($errors)) {
                 return $this->view('user/login',['errors' => $errors]);
             }else{
                 //creation session et redirection vers les articles
@@ -76,7 +77,6 @@ class UserController extends Controller {
             }
         }
         return $this->view('user/login');
-       
     }
 
     public function createsession($user){
@@ -90,23 +90,4 @@ class UserController extends Controller {
         redirect('post.index');
     }
 
-    public function deleteFavorite(){ 
-        // je dois lui passer l'id fu favori
-        //je dois sécuriser ma route avec un token 
-        //je recup les données en json que je dois décoder
-        
-        //$data = json_decode($this->request->);
-        //on verrif si le token est valide avec le nom delete
-        //on verrif le nom de l'article 
-        //if(){
-
-            //SUPP en bdd
-            
-            //on repond en json
-            //return new JsonResponse(['success' => 1 ]);
-        //}else{
-            //return new JsonResponse(['error' => 'Token Invalide'], 400);
-        //}
-
-    }
 }

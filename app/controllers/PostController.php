@@ -19,26 +19,26 @@ class PostController extends Controller
     {
         $posts = Post::orderBy('created_at', 'desc')->get();
         //ajouter une condition pour eviter erreur de session
+        /*
         if($_SESSION){
             $user_id = $_SESSION['id'];
             var_dump($user_id);
-        }
-        $this->view('home/posts', compact('posts')); // 
+        }*/
+        $this->view('home/posts', compact('posts'));
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $post = Post::find($id);
         $comments = Comment::where('post_id', $id)->where('status', '=', 1)->get(); // afficher les commentaires avec le statut 1 = en ligne
         
-        if($_SESSION){
-            $user_id = $_SESSION['id'];
-            $session = $_SESSION;
-        }else{
+        if ($this->request->session('auth')) {
+            $user_id = $this->request->session('id');
+        } else {
             $user_id = null;
-            $session = null;
         }
         
-        return $this->view('home/show', compact('post', 'comments','votes', 'user_id', 'session'));  
+        return $this->view('home/show', compact('post', 'comments', 'user_id'));  
     }
     
 }
