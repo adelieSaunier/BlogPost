@@ -1,4 +1,5 @@
-# Blog PHP
+# Blog Post
+***
 
 ## Pour faire fonctionner le projet, vous devez :
         - Avoir installé composer
