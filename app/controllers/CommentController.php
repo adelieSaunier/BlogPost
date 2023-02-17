@@ -35,7 +35,7 @@ class CommentController extends Controller
                 flash('comment-message', 'Merci pour commentaire, il sera validé très prochainement');
                 return redirect('post.show', ['id' => $id], compact('comment'));   
             }
-            return $this->view('post/show/'.$id, ['errors' => $errors, 'id' => $id]); 
+            return redirect('post.show', ['id' => $id]);
         }
     }
     
