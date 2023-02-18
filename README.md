@@ -1,8 +1,6 @@
 # Blog Post
 ***
-
-## Pour faire fonctionner le projet, vous devez :
-
+##  Pour faire fonctionner le projet, vous devez :
         - Avoir installé composer
         - Cloner le code 
         - Éxecuter la commande composer install
