@@ -66,12 +66,10 @@ class UserController extends Controller {
                 //creation session et redirection vers les articles
                 $user = User::where('firstname', '=', $this->request->name('firstname'))->first();
 
-                if($user !== null){
+                if ($user !== null) {
                     if(password_verify($this->request->name('pass'),$user->pass)){
                         $this->createsession($user);
                         redirect('post.index');
-                    }else {
-                        echo "mauvais mot de passe";
                     }
                 }
             }

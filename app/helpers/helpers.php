@@ -55,6 +55,7 @@ function flash($name = '', $message = '', $class = 'message-success')
     
             if(!empty(session($name. '_class'))){
                 // pareil on doit l'unset pour que le message ne reste pas après avoir raffraichi la page
+                
                 unset($_SESSION[$name. '_class']);
             }
     

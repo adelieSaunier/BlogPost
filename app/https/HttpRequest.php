@@ -19,17 +19,17 @@ class HttpRequest
     
     public function name(string $field = null)
     {
-        if($field == null){
+        if ($field == null) {
             return $_POST;
         }
-        return $_POST[$field];
+        return htmlspecialchars($_POST[$field]);
     }
 
     public function session($name, $data = null)
     {
-        if(!empty($data) | $data != null ){
+        if (!empty($data) | $data != null ) {
             $_SESSION[$name] = $data;
-        }else{
+        } else {
             return isset($_SESSION[$name]) ? $_SESSION[$name] : "";
         }
     }
@@ -112,7 +112,4 @@ class HttpRequest
             flash('file_message', 'l\'extension n\'est pas correct' ) ;
         }
     }
-
-
-
 }
