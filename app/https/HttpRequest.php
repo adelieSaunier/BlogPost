@@ -84,7 +84,7 @@ class HttpRequest
     { 
         preg_match_all('/(\d+)/', $rule, $matches); // $matches tableau
         $limit =(int) $matches[0][0]; // la valeur renseignée daans mon tableau 
-        if(strlen($value) < $limit){
+        if (strlen($value) < $limit) {
             $this->errors[$name][] = "$name doit faire au minimum $limit charactères";
         }
     }
