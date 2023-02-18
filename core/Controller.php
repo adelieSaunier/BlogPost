@@ -5,7 +5,8 @@ use Twig\TwigFunction;
 
 class Controller
 {
-    public function view(string $path, $datas = []){
+    public function view(string $path, $datas = [])
+    {
         $loader = new FilesystemLoader('../ressources/views');
         $twig = new Environment($loader, [
             'cache' => false, // pour ne pas enregistrer le cache en developpement

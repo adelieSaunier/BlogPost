@@ -6,6 +6,7 @@ class HttpRequest
 {
     protected $posts;
     protected $errors;
+    
 
     public function __construct()
     {
@@ -14,15 +15,15 @@ class HttpRequest
 
     public function all()
     {
-        return $_POST;
+        return $this->posts;
     }
     
     public function name(string $field = null)
     {
         if ($field == null) {
-            return $_POST;
+            return $this->posts;
         }
-        return htmlspecialchars($_POST[$field]);
+        return htmlspecialchars($this->posts[$field]);
     }
 
     public function session($name, $data = null)
@@ -36,10 +37,9 @@ class HttpRequest
 
     public function validator(array $rules)
     {
-    
-        foreach($rules as $key=> $valuearray){
+        foreach ($rules as $key=> $valuearray) {
             if (array_key_exists($key, $this->posts)) {
-                foreach($valuearray as $rule){
+                foreach ($valuearray as $rule) {
                     
                     switch($rule){
                         case 'required':
@@ -62,9 +62,11 @@ class HttpRequest
     }
 
     public function required($name, $value)
-    { 
-        $value = trim($value); //$name = nom du champs et $value = valeur du champs
-        if(!isset($value) || is_null($value) || empty($value)){ // si cette valeur n'est pas soumise ou qu'elle est null ou vide
+    {
+        //$name = nom du champs et $value = valeur du champs
+        $value = trim($value); 
+        // si cette valeur n'est pas soumise ou qu'elle est null ou vide
+        if (!isset($value) || is_null($value) || empty($value)) { 
             $this->errors[$name][] = "$name est requis";
         } 
     }
@@ -91,7 +93,7 @@ class HttpRequest
     {
         return $this->errors;
     }
-
+    /*
     public function loadfile($name, $file_destination, array $data)
     {
         
@@ -111,5 +113,5 @@ class HttpRequest
         }else{
             flash('file_message', 'l\'extension n\'est pas correct' ) ;
         }
-    }
+    }*/
 }
