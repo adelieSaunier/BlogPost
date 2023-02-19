@@ -1,4 +1,5 @@
 # Blog Post
+Ce blog a été développé dans le cadre de la formation Openclassroom.
 ***
 ##  Pour faire fonctionner le projet, vous devez :
         - Avoir installé composer
@@ -14,9 +15,6 @@
         - Aller sur la page d'administration des commentaires, vous pourrez valider ou supprimer le commentaire
         - Une fois validé, le commentaire apparaitra sous l'article concerné
 
-## À noter : Utilisation du query builder de Laravel : Eloquent
-
-Ce blog a été développé dans le cadre de la formation Openclassroom.
 
 ## En tant qu'administrateur on doit pouvoir : 
         - créer/modifier/supprimer des articles 
