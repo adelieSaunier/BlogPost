@@ -15,8 +15,10 @@
     <div id="post-details">
         <h1 class="heading">{{post.title}}</h1>
         <p class="info">{{post.content}}</p>
-        <p>{{post.created_at}}</p>
-        <a href="{{ route('post.index') }}">Retour</a>
+        <p class="info">{{post.created_at}}</p>
+        <div class="padd40top">
+            <a href="{{ route('post.index') }}" class="btn">Retour</a>
+        </div>
     </div>
 </section>
     
@@ -24,6 +26,7 @@
 
 <section id="postedcomments-section">
 
+    <h3>Vos Commentaires</h3>
 
     <div id="comm">
         {% for comment in comments %}
@@ -36,43 +39,46 @@
         
     </div>
 </section>     
-    {% if auth.status == null %}
-        <p>Pour laisser un commentaire <a href="{{ route('user.login') }}" class="btn">se connecter</a></p>          
-        
-        {% else %}
+   
            
-        <section id="comment-section">
+    <section id="comment-section">
+    {% if auth.status == null %}
+        <div class="log-message">
+            <p>Pour laisser un commentaire <a href="{{ route('user.login') }}" class="btn">se connecter</a></p>          
+        </div>
+    {% else %}
 
-           <!-- CREATION COMMENTAIRE -->
+        <!-- CREATION COMMENTAIRE -->
 
-            <div id="createcomment">
-                <form action="{{ route('comment.create') }}" method="post">
-                    <div>
-                        <input type="hidden" name="user_id" value="{{user_id}}" > <!--ENVOYER L'ID de mon utilisateur session-->
-                        <input type="hidden" name="post_id" value="{{post.id}}" >
-                    </div>
-                    <div>
-                        <label for="title-comment">TItre</label><br>
-                        <input type="text" name="title-comment" id="title-comment" value="{{comment.title}}">
-                        {% for error in errors.title %}
-                            <p class="red-error">{{error}}</p>
-                        {% endfor %}
-                    </div>
+        <div id="createcomment">
+            <form action="{{ route('comment.create') }}" method="post">
+                <div>
+                    <input type="hidden" name="user_id" value="{{user_id}}" > <!--ENVOYER L'ID de mon utilisateur session-->
+                    <input type="hidden" name="post_id" value="{{post.id}}" >
+                </div>
+                <div>
+                    <label for="title-comment">TItre</label><br>
+                    <input type="text" name="title-comment" id="title-comment" value="{{comment.title}}">
+                    {% for error in errors.title %}
+                        <p class="red-error">{{error}}</p>
+                    {% endfor %}
+                </div>
 
-                    <div>
-                        <label for="comment">Commentaire</label> <br>
-                        <textarea name="comment" id="" cols="30" rows="10">{{comment.comment}}</textarea>
-                        {% for error in errors.content %}
-                            <p class="red-error">{{error}}</p>
-                        {% endfor %}
-                    </div>
+                <div>
+                    <label for="comment">Commentaire</label> <br>
+                    <textarea name="comment" id="" cols="30" rows="10">{{comment.comment}}</textarea>
+                    {% for error in errors.content %}
+                        <p class="red-error">{{error}}</p>
+                    {% endfor %}
+                </div>
 
-                    <button class="btn" type="submit">Laisser un commentaire</button>
-                </form>
-            </div>
-        </section>
-
+                <button class="btn" type="submit">Laisser un commentaire</button>
+            </form>
+        </div>
     {% endif %} 
+    </section>
+
+    
     
 {% endblock %}
 

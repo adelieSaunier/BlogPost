@@ -24,6 +24,8 @@ Manager::schema()->create('posts', function ($table) {
     $table->mediumText('content');
     $table->mediumText('extract');
     $table->timestamps();
+
+    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 });
 
 Manager::schema()->dropIfExists('comments');

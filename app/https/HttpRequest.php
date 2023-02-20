@@ -23,7 +23,7 @@ class HttpRequest
         if ($field == null) {
             return $this->posts;
         }
-        return htmlspecialchars($this->posts[$field]);
+        return $this->posts[$field];
     }
 
     public function session($name, $data = null)

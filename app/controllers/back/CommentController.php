@@ -14,7 +14,7 @@ class CommentController extends Controller {
 
     public function index()
     {
-        if(isAdmin()){
+        if (isAdmin()) {
             $commentsToValidate = Comment::where('status','=', 0 )->orderBy('id', 'desc')->get();
             $validatedComments = Comment::where('status','=', 1 )->orderBy('id', 'desc')->get();
             
@@ -26,28 +26,33 @@ class CommentController extends Controller {
     }
 
     public function validate($id){
-        
-        $comment = Comment::find($id);
-        
-        $title = $comment->title;
-        $comment_id = $comment->id;
-        $content = $comment->content;
-        $user = $comment->user->lastname;
-        $post = $comment->post->title;
-        $validatedcomment = [
-            'comment_id' => $comment_id,
-            'title' => $title,
-            'content' => $content,
-            'user' => $user,
-            'post' => $post
-        ];
-        
-        $comment->update(['status' => 1]);
-        $response = json_encode($validatedcomment);
-        echo $response;
+        if (isAdmin()) {
+            $comment = Comment::find($id);
+            
+            $title = $comment->title;
+            $comment_id = $comment->id;
+            $content = $comment->content;
+            $user = $comment->user->lastname;
+            $post = $comment->post->title;
+            $validatedcomment = [
+                'comment_id' => $comment_id,
+                'title' => $title,
+                'content' => $content,
+                'user' => $user,
+                'post' => $post
+            ];
+            
+            $comment->update(['status' => 1]);
+            $response = json_encode($validatedcomment);
+            echo $response;
+        } else {
+            return redirect('home.index');
+        }
     }
     
     public function delete($id){
-        Comment::destroy($id);
+        if (isAdmin()) {
+            Comment::destroy($id);
+        }
     }
 }

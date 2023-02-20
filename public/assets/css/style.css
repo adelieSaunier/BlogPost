@@ -1,33 +1,3 @@
-.dropdown {
-  background-color: aliceblue;
-  visibility: hidden;
-  opacity: 0;
-  position: absolute;
-  transition: all 0.5s ease;
-  margin-top: 1rem;
-  display: none;
-}
-
-.li-drop:hover > ul,
-.dropdown:hover {
-  visibility: visible;
-  opacity: 1;
-  display: block;
-}
-
-.li-drop {
-  text-decoration: none;
-  padding: 1rem;
-  clear: both;
-  width: 100%;
-}
-
-.has-dropdown:focus-within > ul {
-  visibility: visible;
-  opacity: 1;
-  display: block;
-}
-
 .padd40top {
   padding-top: 40px;
 }
